@@ -11,7 +11,7 @@
 			- oauth
 
 /etc/puppet/site/profile/manifests/pip3.pp
-	# Install python3-pip and required packages
+	# Install python, python3-pip and required packages
 	class profile::mapleta::pip3 (
 		Array $prereqs = [],
 		Array $packages = []
