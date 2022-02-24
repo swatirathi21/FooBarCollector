@@ -1,0 +1,29 @@
+Pre-requisite to start Elasticsearch and Kibana
+Download elasticsearch and kibana from https://www.elastic.co/start 
+Unzip elasticsearch folder -> bin folder -> Run elasticsearch.sh or bat file -> It will start your elastic server on 9200 port
+Same steps for Kibana as well -> It will start Kibana server on 5601 port.
+
+1. Open the npm project. Uner src run the following commands 3 times with port 9999, 1111 and 2222 in different windows. It can be done through a CI pipeline also.
+	export PORT=9999
+	npm start
+	
+2. Run foobar collector python script with the following command: 
+python foo_bar_collector.py "http://127.0.0.1:9999/stats;http://127.0.0.1:2222/stats;http://127.0.0.1:1111/stats" "http://localhost:9200"
+
+3. It will store the initial foo bar counts(maybe 0) from all 3 servers into elastic server.
+
+4. Now, make some random calls to generate foo bar counts on all 3 instances. It can be done through a scheduled CI pipeline as well. I used Jenkins for this.
+	curl -XPOST http://127.0.0.1:9999/foo 
+	curl -XPOST http://127.0.0.1:9999/bar
+	curl -XPOST http://127.0.0.1:1111/foo
+	curl -XPOST http://127.0.0.1:1111/bar
+	curl -XPOST http://127.0.0.1:2222/foo
+	curl -XPOST http://127.0.0.1:2222/bar
+	You can randomly repeat the above steps.
+
+5. Under Kibana, you will find new index: 'foobar'. You can either create a new Kibana pattern and then create a visualization as shown in the screenshot. OR else the easiest way is to import the .ndjson. 
+	It will automatically create the Kibana objects for you.
+5. Go To Kibana -> Discover tab: http://localhost:5601/app/discover  -> Select foobar index -> You can see the generated logs.
+
+6. Go to the dashboard 'Foo Bar Stats' and you will see a Data table. The answers to the questions are mentions in the same file i.e. README.md.rtf where the questions are asked.
+
