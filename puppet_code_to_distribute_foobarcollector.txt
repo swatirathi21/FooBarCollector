@@ -1,0 +1,62 @@
+/etc/puppet/hieradata
+	- pythonpacakges.yaml
+		# Python 3 pip OS prerequisites
+		profile::pip3::prereqs:
+			- libffi-dev
+			- libssl-dev
+			- python3-pip
+		# Python 3 pip packages:
+        profile::mapleta::pip3::packages:
+			- requests
+			- oauth
+
+/etc/puppet/site/profile/manifests/pip3.pp
+	# Install python3-pip and required packages
+	class profile::mapleta::pip3 (
+		Array $prereqs = [],
+		Array $packages = []
+	) {
+	
+	class{'python':
+			version    => 'system',
+			pip        => 'present',
+			dev        => 'present',
+			virtualenv => 'absent',
+	}
+
+	ensure_packages($prereqs, {
+		ensure   => present,
+	})
+
+	ensure_packages($packages, {
+		ensure   => present,
+		provider => 'pip3',
+	})
+	}
+
+/etc/puppet/site/profile/manifests/base.pp
+# Base configuration for all nodes
+
+class profile::base {
+	class {'::puppet_agent':
+		package_version => auto,
+	}
+	
+	service{ 'puppet':
+		ensure => running,
+		enable => true,
+	}
+}
+
+/etc/puppet/site/profile/manifests/foobarcollector.pp
+# Class to collect metrics from all running servers
+
+class profile::foobarcollector {
+    include profile::pip3
+    file { '/foobarcollector.py':
+		source => 'puppet:///modules/foobarcollector.py',
+		mode   => '0755',
+  }
+
+}
+
