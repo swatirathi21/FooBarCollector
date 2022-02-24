@@ -75,7 +75,8 @@ As a stretch goal, implement a way to distribute collector to remote machine(s).
 
 ## Containerization
 
-As a stretch goal, bake collector into a docker image to be deployed as a side car with the service.  
+As a stretch goal, bake collector into a docker image to be deployed as a side car with the service. 
+  This has been implemented using docker-compose.yml and Dockerfile. 
 
 - Why did you use this base image?
     
