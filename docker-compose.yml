@@ -1,0 +1,9 @@
+services:
+  foobarcollector:
+    build: /
+    image: foobarcollector:latest
+    environment:
+      SERVERS: ${SERVERS}
+      ELASTICSEARCH_SERVER: ${ELASTICSEARCH_SERVER}
+      ELASTICSEARCH_USERNAME: ${ELASTICSEARCH_USERNAME}
+      ELASTICSEARCH_PASSWORD: ${ELASTICSEARCH_PASSWORD}
