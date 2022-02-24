@@ -69,7 +69,7 @@ As a stretch goal, implement a way to distribute collector to remote machine(s).
 
 - Why did you chose to go with this solution? Which alternatives (if any) did you evaluate?
 
-    I have used puppet to distribute collector to remote machines as I have worked on puppet and more familiar with it as infrastructure as code. It is a model-driven and having its own domain-specific language. It can be used for more complex systems.
+    I have used puppet(psuedocode in file "puppet_code_to_distribute_foobarcollector.txt") to distribute collector to remote machines as I have worked on puppet and more familiar with it as infrastructure as code. It is a model-driven and having its own domain-specific language. It can be used for more complex systems.
 
     An alternative to puppet is Ansible as it is simple (has master but no agents). Commands can be written in any programming language and it uses YAML syntax.
 
